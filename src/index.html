@@ -6,13 +6,58 @@
     <title>To-Do List</title>
 </head>
 <body>
+
+
+
+
+     <dialog id="newTaskDialog">
+        <div class="dialogWrapper">
+            <header class="dialogHeader">New Task
+                <button class="closeButton">X</button>
+            </header>
+            <div class="newContentContainer">
+                <form action="#" method="dialog">
+                    <input required class="title" name="title" placeholder="Title: Feed dog" type="text">
+                    <textarea required placeholder="Details: Use up the existing packet" class="description"></textarea>
+            <div class="buttonContainer">
+                <div class="left">
+                    <input required class="date" type="date">
+                    <label for="low">Low</label>
+                    <input required type="radio" name="priority" id="low" value="Pr3">
+                    <label for="medium">Medium</label>
+                    <input required type="radio" name="priority" id="medium" value="Pr2">
+                    <label for="high">High</label>
+                    <input required type="radio" name="priority" id="high" value="Pr1">
+                    <label for="project">Project</label>
+                    <select name="project" id="project"></select>
+                    </div>
+                </div>
+                <div class="right">
+                    <button type="button" class="addButton">Add</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+
     <div class="overallContainer">
         <header>ObsessiveListDisorder</header>
         <div class="mainContainer">
             <div id="sidenav"></div>
-            <div id="noteContainer"></div>
+            <div class="noteScreen">
+                <div id="noteContainer"></div>
+                <div class="addTask">+ Add Task</div>
+            </div>
         </div>
     </div>
+
+
+
+
+
     <footer>JCritch91</footer>
+    
 </body>
+
 </html>

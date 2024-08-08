@@ -1,18 +1,19 @@
-function createTodo(title, description, date, time, project, priority, completed){
+function createTodo(title, description, date, project, priority, completed){
+
+    console.log(title + description + date + project + priority + completed)
 
     class Todo {
-        constructor(title, description, date, time, project, priority, completed){
+        constructor(title, description, date, project, priority, completed){
             this.title = title
             this.description = description
             this.date = date
-            this.time = time
             this.project = project
             this.priority = priority
             this.completed = completed
         }
     }
 
-    let newItem = new Todo(title, description, date, time, project, priority, completed = false)
+    let newItem = new Todo(title, description, date, project, priority, completed = false)
 
     return newItem
 }

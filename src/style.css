@@ -1,6 +1,72 @@
+::backdrop{
+    background-color: grey;
+    opacity: 0.50;
+}
+
+#newTaskDialog{
+    box-sizing: border-box;
+    padding: 0px;
+    width: 50%;
+    height: 50%;
+}
+
+.dialogWrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+ .dialogHeader{
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.closeButton{
+    height: 90%;
+}
+
+.newContentContainer{
+    height: 90%;
+    border: 1px solid black;
+}
+
+form{
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    height:80%
+}
+
+.title{
+    height: 10%;
+    font-size: larger;
+}
+
+.description{
+    height: 80%;
+    justify-content: start;
+    resize: none;
+}
+
+.title,.description{
+    border: 0px;
+}
+
+.buttonContainer{
+    justify-content: space-between;
+    height: 20%;
+    display: flex;
+}
+.priority{
+    display: flex;
+} 
+
 body{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    box-sizing: border-box;
     margin: 0px;
     padding: 0px;
     display: flex;
@@ -12,6 +78,8 @@ body{
 }
 
 .overallContainer{
+    border: grey 1px solid;
+    border-radius: 16px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -20,9 +88,9 @@ body{
 }
 
 header{
-    border: 1px solid black;
     height: 15%;
     font-size: 3rem;
+    border-bottom: 1px black solid;
 }
 
 .mainContainer{
@@ -33,10 +101,22 @@ header{
 }
 
 #sidenav{
-    border: 1px solid black;
+    box-sizing: border-box;
+    padding: 2%;
+    border-right: 1px solid black;
     height: 100%;
     width: 20%;
     text-align: center;
+}
+
+ul{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+li{
+    cursor: pointer;
 }
 
 li, ul{
@@ -46,24 +126,70 @@ li, ul{
     padding: 0px;
 }
 
-#noteContainer{
-    box-sizing: border-box;
-    border: 1px solid blue;
+.noteScreen{
     width: 80%;
     height: 100%;
+}
+
+#noteContainer{
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 90%;
     padding: 1%;
+    gap: 10px;
+}
+
+.addTask{
+    height: 10%;
 }
 
 .task{
-    padding: 0px 1% 0px 1%;
+    background-color: white;
+    padding: 0px 2% 0px 2%;
     display: flex;
+    flex-direction: column;
     border-radius: 32px;
-    border: 1px solid green;
     gap: 2%;
 }
 
-footer{
+.secDiv{
+    display: flex;
+    align-items: center;
+    gap: 2%;
 }
 
+.delete{
+    margin-left: auto;
+}
+
+.checkedTask{
+    opacity: 0.50;
+    text-decoration:line-through;
+}
+
+.Pr1{
+    border-left: red solid 4px;
+}
+
+.Pr2{
+    border-left: orange solid 4px;
+}
+
+.Pr3{
+    border-left: green solid 4px;
+}
+
+.delete{
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctitle%3Etrash-can-outline%3C/title%3E%3Cpath d='M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z' /%3E%3C/svg%3E");
+}
+
+footer{
+    height: 2%;
+}
 
 
