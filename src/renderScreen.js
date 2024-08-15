@@ -10,7 +10,7 @@ import { storageAvailable, updateStorage } from './storage';
 function clearTemp(todoArray, projectArray){
 
     const sidenav = document.querySelector('.projectList')
-    const currentSelected = document.querySelector('.active').id
+    let currentSelected = document.querySelector('.active').id
 
     sidenav.replaceChildren()
     renderNav(todoArray, projectArray)
@@ -19,9 +19,13 @@ function clearTemp(todoArray, projectArray){
     project.forEach(el => {
         el.classList.remove('active')
     })
-
+    console.log(currentSelected)
+    if (!projectArray.includes(currentSelected)){
+                    currentSelected = 'projectAll'
+    }
     let select = document.getElementById(`${currentSelected}`)
     select.classList.add('active')
+    checkFilter(todoArray, projectArray)
 }
 
 
