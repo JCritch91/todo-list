@@ -28,7 +28,6 @@ function initiate(){
 
     if (storageAvailable("localStorage")) {
         if (!localStorage.getItem("todoArray")){
-            alert("no stored todo data")
             generateDemoTodoData()
             updateStorage("todoArray", todoArray)
         }
@@ -39,7 +38,6 @@ function initiate(){
                 generateDemoTodoData()  }
         }
         if (!localStorage.getItem("projectArray")){
-            alert("no stored project data")
             generateDemoProjectData()
             updateStorage("projectArray", todoArray)
         }

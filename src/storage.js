@@ -18,7 +18,6 @@ function storageAvailable(type) {
   }
 
   function updateStorage(arrayName, array) {
-    console.log(arrayName)
     localStorage.setItem(arrayName, JSON.stringify(array))
   }
 
