@@ -1,5 +1,6 @@
-function completeTodo(checked, passedTodoArray, i){
-    const div = document.getElementById(i)
+function completeTodo(checked, todoArray, i){
+
+    const div = document.getElementById(todoArray[i].id)
 
     const boxChecked = ()=> {
         div.classList.add('checkedTask')
@@ -8,8 +9,7 @@ function completeTodo(checked, passedTodoArray, i){
     const boxUnchecked = () => {
         div.classList.remove('checkedTask')
     }
-
-    passedTodoArray[i].completed = checked
+    todoArray[i].completed = checked
 
     checked == true? boxChecked() : boxUnchecked()
 }

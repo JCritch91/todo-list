@@ -158,6 +158,7 @@ header{
     height: 100%;
     width: 20%;
     text-align: center;
+    overflow-x: auto;
 }
 
 ul{
@@ -169,6 +170,8 @@ ul{
 
 li{
     cursor: pointer;
+    max-width: 80%;
+    overflow-y: auto;
 }
 
 li, ul{
@@ -212,7 +215,7 @@ li, ul{
     max-height: 98%;
     padding: 3% 3% 1% 3%;
     gap: 2%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 
@@ -224,9 +227,12 @@ li, ul{
     border-radius: 32px;
     justify-content: center;
     gap: 10px;
-    min-height: 40px;
-    height: fit-content;
     cursor: pointer;
+    min-height: fit-content;
+}
+
+.extended{
+    height:fit-content;
 }
 
 .task:hover{

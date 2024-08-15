@@ -1,7 +1,6 @@
 
 function editTodo(todoArray, i){
     
-     console.log(i)
     const div = document.getElementById(i)
     const completed = div.querySelector('.checkbox').checked
     const title = div.querySelector('.taskTitle').textContent
@@ -11,13 +10,11 @@ function editTodo(todoArray, i){
     const project = div.querySelector('.extendedSelect').value
     let priority 
 
-
-
     buttons.forEach(button => {
         if (button.classList.contains('selected')){
             priority = button.textContent
         }
-    });
+    })
 
     todoArray[i].title = title
     todoArray[i].description = description
@@ -25,11 +22,6 @@ function editTodo(todoArray, i){
     todoArray[i].priority = priority
     todoArray[i].project = project
     todoArray[i].completed = completed
-
-/* 
-    return { title, description, date, project, priority, completed} */
-
-    return (todoArray)
 
 }
 

@@ -1,67 +1,72 @@
 import './style.css';
-import { createTodo } from "./newTodo";
-import { createProject } from "./newProject";
-import { filterTodo, renderNav, renderTodo, newProjectButton } from "./renderScreen";
-
+import { filterTodo, renderNav, renderTodo, checkFilter } from "./renderScreen";
+import { createProject, createTodo } from "./constructors"
+import { storageAvailable, updateStorage } from './storage';
 
 function initiate(){
 
-    const noteContainer = document.getElementById('noteContainer')
-    const sidenav = document.getElementById('sidenav')
-    const newTaskDialog = document.getElementById('newTaskDialog')
-    const addButton = document.querySelector('.addButton')
-    const form = document.querySelector('form')
-    const createTaskButton = document.querySelector('.addTask')
+    let todoArray = []
+    let projectArray = []
 
+    const generateDemoTodoData = () =>{
+        todoArray.push(createTodo('0','Feed the dog', '1 cup full of dry food. Dont forget to give him water !', '2025-08-09', 'Pets', 'High'))
+        todoArray.push(createTodo('1','Water fountain filter', 'Change cat water fountain filter. Order more if we have run out', '2026-08-09', 'Pets', 'Low'))
+        todoArray.push(createTodo('2','Kitchen touchups', 'Paint the white kitchen touchups before the floor gets fitted. Clean up the mess after.', '2025-08-09','Home', 'Medium'))
+        todoArray.push(createTodo('3','Eggs', 'Buy eggs', '2024-08-09', 'Shopping', 'Low'))
+        todoArray.push(createTodo('4','Bread', 'Buy bread', '2024-08-09', 'Shopping', 'High'))
+        todoArray.push(createTodo('5', 'Orange Juice', 'Buy orange juice. (Not from concentrate)', '2024-08-09', 'Shopping', 'Medium'))
+        todoArray.push(createTodo('6','Learn Webkit', 'Get a good working understanding of using webkit for building websites and modules', '2024-08-09', 'Coding', 'High', true))
+        todoArray.push(createTodo('7','Tidy up code', 'Go back over this code and try to tidy it up. Try to group more processes so the functions arent so bulky', '2024-08-18', 'Coding', 'Medium'))
+    }
 
-    const todoArray = []
-    const projectArray = []
+    const generateDemoProjectData = () =>{
+        projectArray.push(createProject('Pets'))
+        projectArray.push(createProject('Home'))
+        projectArray.push(createProject('Shopping'))
+        projectArray.push(createProject('Coding'))
+    }
 
-
-    todoArray.push(createTodo('Test1', 'Testing purposes', '2024-08-09', 'Default', 'High'))
-    todoArray.push(createTodo('Test2', 'Testing purposes2', '2024-08-09', 'Default', 'Medium'))
-    todoArray.push(createTodo('Test3', 'Testing purposes2', '2024-08-09','Shopping', 'Low'))
-    todoArray.push(createTodo('Test4', 'Testing purposes2', '2024-08-09', 'Home', 'High'))
-    todoArray.push(createTodo('Test5', 'Testing purposes2', '2024-08-09', 'Home', 'High'))
-
-    projectArray.push(createProject('Default'))
-    projectArray.push(createProject('Home'))
-    projectArray.push(createProject('Shopping'))
+    if (storageAvailable("localStorage")) {
+        if (!localStorage.getItem("todoArray")){
+            alert("no stored todo data")
+            generateDemoTodoData()
+            updateStorage("todoArray", todoArray)
+        }
+        else{
+            let storedTodoArray = JSON.parse(localStorage.getItem("todoArray"))
+            todoArray = storedTodoArray
+            if (todoArray.length ==0){
+                generateDemoTodoData()  }
+        }
+        if (!localStorage.getItem("projectArray")){
+            alert("no stored project data")
+            generateDemoProjectData()
+            updateStorage("projectArray", todoArray)
+        }
+        else{
+            let storedProjectArray = JSON.parse(localStorage.getItem("projectArray"))
+            projectArray = storedProjectArray
+            if (projectArray.length ==0){
+                generateDemoProjectData()
+            }
+        }
+      } else {
+        generateDemoTodoData()
+        generateDemoTodoData()
+      }
 
     renderNav(todoArray, projectArray)
     renderTodo(todoArray, projectArray)
 
-    createTaskButton.addEventListener('click', ()=>{
-        for (let i=0; i<projectArray.length; i++){
-            let select = document.getElementById('project')
-            let option = document.createElement('option')
-            option.value = projectArray[i].name
-            option.text = projectArray[i].name
-            select.appendChild(option)
-        }
-        newTaskDialog.showModal()
-    })
-
-    document.querySelectorAll('.priorityButton').forEach(el=>{
-        el.addEventListener('click', (e)=>{
-            let buttons = document.querySelectorAll('.priorityButton')
-                buttons.forEach(element => {
-                element.classList.remove('highSelected', 'mediumSelected', 'lowSelected', 'selected')
-            });
-            e.target.classList.contains('lowButton')? e.target.classList.add('lowSelected', 'selected'):
-            e.target.classList.contains('mediumButton')? e.target.classList.add('mediumSelected', 'selected'):
-            e.target.classList.add('highSelected','selected')
-        })
-    })
-
-
+    const form = document.querySelector('form')
+    const addButton = document.querySelector('.addButton')
     addButton.addEventListener('click', (event)=>{
         event.preventDefault()
-
-        const title = form.querySelector('.title').value
+        const title = document.querySelector('.title').value
         const description = form.querySelector('.description').value
         const date = form.querySelector('.date').value
         const buttons = form.querySelectorAll('.priorityButton')
+        const project = document.getElementById('project').value
         let priority
 
         buttons.forEach(button => {
@@ -70,18 +75,12 @@ function initiate(){
             }
         });
 
-        todoArray.push(createTodo(title, description, date, 'Default', priority))
+        todoArray.push(createTodo(todoArray.length, title, description, date, project, priority, false))
+        updateStorage("todoArray", todoArray)
         newTaskDialog.close()
         form.reset()
-        renderTodo(todoArray, projectArray)
+        checkFilter(todoArray, projectArray)
     })
-
-    const closeDialog = document.querySelector('.closeButton')
-    closeDialog.addEventListener('click', ()=>{
-        newTaskDialog.close()
-        form.reset
-    })
-
 }
 
 initiate()

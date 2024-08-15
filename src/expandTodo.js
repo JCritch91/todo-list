@@ -1,18 +1,17 @@
-import { filterTodo, renderTodo } from "./renderScreen"
+import { checkFilter, filterTodo, renderTodo } from "./renderScreen"
 import { editTodo } from "./editTodo";
+import { storageAvailable, updateStorage } from './storage';
 
-function expandTodo(todoArray, projectArray, i, name){
+function expandTodo(todoArray, projectArray, id, name){
 
-    let div = document.getElementById(i)
-    let div2 = document.querySelector('.divThree')
+    let div = document.getElementById(id)
+    let div3 = document.querySelector('.divThree')
 
+    const expandDiv = (todoArray, projectArray, id) =>{
 
-    const expandDiv = (todoArray, projectArray, i) =>{
-
-    
         let div, inputDesc, inputDate, buttonDiv, button1, button2, button3, newDiv, select, option, selectionsDiv
 
-        div = document.getElementById(i)
+        div = document.getElementById(id)
         div.classList.add('extended')
 
         newDiv = document.createElement('div')
@@ -20,8 +19,7 @@ function expandTodo(todoArray, projectArray, i, name){
 
         inputDesc = document.createElement('textarea')
         inputDesc.classList.add('extendedEl', 'description', 'extendedDescription')
-        inputDesc.value = todoArray[i].description
-        newDiv.appendChild(inputDesc)
+        inputDesc.value = todoArray[id].description
 
         selectionsDiv = document.createElement('div')
         selectionsDiv.classList.add('selectionsDiv')
@@ -29,8 +27,7 @@ function expandTodo(todoArray, projectArray, i, name){
         inputDate = document.createElement('input')
         inputDate.classList.add('extendedEl', 'date', 'extendedDate')
         inputDate.type ='date'
-        inputDate.value = todoArray[i].date
-        selectionsDiv.appendChild(inputDate)
+        inputDate.value = todoArray[id].date
 
         button1 = document.createElement('button')
         button1.textContent = 'Low'
@@ -44,17 +41,13 @@ function expandTodo(todoArray, projectArray, i, name){
         button3.textContent = 'High'
         button3.classList.add('priorityButton', 'highButton', 'extendedEl', 'extendedButton')
         
-        let currentPriority = todoArray[i].priority
+        let currentPriority = todoArray[id].priority
         currentPriority == 'Low'? button1.classList.add('lowSelected', 'selected'):
         currentPriority == 'Medium'? button2.classList.add('mediumSelected', 'selected'):
         button3.classList.add('highSelected', 'selected')
 
-        buttonDiv=document.createElement('div')
+        buttonDiv = document.createElement('div')
         buttonDiv.classList.add('buttonContainer')
-        buttonDiv.appendChild(button1)
-        buttonDiv.appendChild(button2)
-        buttonDiv.appendChild(button3)
-        selectionsDiv.appendChild(buttonDiv)
 
         select = document.createElement('select')
         select.classList.add('extendedEl', 'extendedSelect')
@@ -63,66 +56,71 @@ function expandTodo(todoArray, projectArray, i, name){
             option = document.createElement('option')
             option.value = projectArray[n].name
             option.text = projectArray[n].name
-            if (projectArray[n].name == todoArray[i].project){
+            if (projectArray[n].name == todoArray[id].project){
                 option.setAttribute('selected', 'selected')
             }
             select.appendChild(option)
         }
-        select.addEventListener('click', (e)=>{
-            e.stopPropagation()
-        })
+
+        buttonDiv.appendChild(button1)
+        buttonDiv.appendChild(button2)
+        buttonDiv.appendChild(button3)
+        selectionsDiv.appendChild(inputDate)
+        selectionsDiv.appendChild(buttonDiv)
         selectionsDiv.appendChild(select)
+        newDiv.appendChild(inputDesc)
         newDiv.appendChild(selectionsDiv)
         div.appendChild(newDiv)
-        document.querySelectorAll('.extendedEl').forEach(el =>{
-            el.addEventListener('click', (e)=>{
-                e.stopPropagation()
-            })
-        })
-
-        document.querySelectorAll('.priorityButton').forEach(el=>{
-            el.addEventListener('click', (e)=>{
-                let buttons = document.querySelectorAll('.priorityButton')
-                    buttons.forEach(element => {
-                    element.classList.remove('highSelected', 'mediumSelected', 'lowSelected', 'selected')
-                });
-                e.target.classList.contains('lowButton')? e.target.classList.add('lowSelected', 'selected'):
-                e.target.classList.contains('mediumButton')? e.target.classList.add('mediumSelected', 'selected'):
-                e.target.classList.add('highSelected','selected')
-            })
-        })
-        
     }
 
-     const compressDiv = (todoArray, i) => {
-        for (i = 0; i< todoArray.length; i++){
-            let div = document.getElementById(i)
-            let div2 = document.querySelector('.divThree')
-            if (div.classList.contains('extended')){
 
-                div.classList.remove('extended')
-                div.removeChild(div2)
+    const compressDiv = (todoArray) => {
+        for (let n = 0;n<todoArray.length;n++){
+            let currentDiv = document.getElementById(todoArray[n].id)
+            if(currentDiv !== null && currentDiv.classList.contains('extended')){
+                editTodo(todoArray, currentDiv.id)
+                updateStorage("todoArray", todoArray)
+                currentDiv.classList.remove('extended')
+                currentDiv.removeChild(div3)
             }
-        }
+            }
     }
+
 
     if (div.classList.contains('extended')){
-        editTodo(todoArray, i)
-            if (name == ''){ 
-                console.log('After Edit')
-                console.log(todoArray)
-                renderTodo(todoArray, projectArray)
-            }
-            else{ 
-                filterTodo(todoArray, name, projectArray) 
-            }
+        editTodo(todoArray, id)
+        let storedTodoArray = JSON.parse(localStorage.getItem("todoArray"))
+        updateStorage("todoArray", todoArray)
+        checkFilter(todoArray, projectArray)
         div.classList.remove('extended')
-        div.removeChild(div2)
+        div.removeChild(div3)
     }
     else{
-    compressDiv(todoArray, i)
-    expandDiv(todoArray, projectArray, i)
-    }
+            compressDiv(todoArray)
+            checkFilter(todoArray, projectArray)
+            expandDiv(todoArray, projectArray, id)
+        }
+    
+
+
+
+    document.querySelectorAll('.extendedEl').forEach(el =>{
+        el.addEventListener('click', (e)=>{
+            e.stopPropagation()
+        })
+    })
+
+    document.querySelectorAll('.priorityButton').forEach(el=>{
+        el.addEventListener('click', (e)=>{
+            let buttons = document.querySelectorAll('.priorityButton')
+                buttons.forEach(element => {
+                element.classList.remove('highSelected', 'mediumSelected', 'lowSelected', 'selected')
+            });
+            e.target.classList.contains('lowButton')? e.target.classList.add('lowSelected', 'selected'):
+            e.target.classList.contains('mediumButton')? e.target.classList.add('mediumSelected', 'selected'):
+            e.target.classList.add('highSelected','selected')
+        })
+    })
 }
 
 export{expandTodo}
