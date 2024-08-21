@@ -1,17 +1,16 @@
-function completeTodo(checked, todoArray, i){
+function completeTodo(checked, todoArray, i) {
+  const div = document.getElementById(todoArray[i].id);
 
-    const div = document.getElementById(todoArray[i].id)
+  const boxChecked = () => {
+    div.classList.add("checkedTask");
+  };
 
-    const boxChecked = ()=> {
-        div.classList.add('checkedTask')
-    }
+  const boxUnchecked = () => {
+    div.classList.remove("checkedTask");
+  };
+  todoArray[i].completed = checked;
 
-    const boxUnchecked = () => {
-        div.classList.remove('checkedTask')
-    }
-    todoArray[i].completed = checked
-
-    checked == true? boxChecked() : boxUnchecked()
+  checked == true ? boxChecked() : boxUnchecked();
 }
 
-export{completeTodo}
+export { completeTodo };

@@ -1,67 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-Do List</title>
-</head>
-<body>
-
-
-
-
-     <dialog id="newTaskDialog">
-        <div class="dialogWrapper">
-            <header class="dialogHeader">New Task
-                <svg class="closeButton" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>close-box-multiple</title><path d="M4 20H18V22H4C2.9 22 2 21.11 2 20V6H4V20M20.22 2H7.78C6.8 2 6 2.8 6 3.78V16.22C6 17.2 6.8 18 7.78 18H20.22C21.2 18 22 17.2 22 16.22V3.78C22 2.8 21.2 2 20.22 2M19 13.6L17.6 15L14 11.4L10.4 15L9 13.6L12.6 10L9 6.4L10.4 5L14 8.6L17.6 5L19 6.4L15.4 10L19 13.6Z" /></svg>
-            </header>
-            <div class="newContentContainer">
-                <form id="newTaskForm" action="#" method="dialog">
-                    <input required class="title" name="title" placeholder="Title: Feed dog" type="text">
-                    <textarea required placeholder="Details: Use up the existing packet" class="description"></textarea>
+  </head>
+  <body>
+    <dialog id="newTaskDialog">
+      <div class="dialogWrapper">
+        <header class="dialogHeader">
+          New Task
+          <svg
+            class="closeButton"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <title>close-box-multiple</title>
+            <path
+              d="M4 20H18V22H4C2.9 22 2 21.11 2 20V6H4V20M20.22 2H7.78C6.8 2 6 2.8 6 3.78V16.22C6 17.2 6.8 18 7.78 18H20.22C21.2 18 22 17.2 22 16.22V3.78C22 2.8 21.2 2 20.22 2M19 13.6L17.6 15L14 11.4L10.4 15L9 13.6L12.6 10L9 6.4L10.4 5L14 8.6L17.6 5L19 6.4L15.4 10L19 13.6Z"
+            />
+          </svg>
+        </header>
+        <div class="newContentContainer">
+          <form id="newTaskForm" action="#" method="dialog">
+            <input
+              required
+              class="title"
+              name="title"
+              placeholder="Title: Feed dog"
+              type="text"
+            />
+            <textarea
+              required
+              placeholder="Details: Use up the existing packet"
+              class="description"
+            ></textarea>
             <div class="bottomButtons">
-                <div class="left">
-                    <label for="date">Date Due:
-                        <input required class="date" type="date" name="date"></label>
-                        <div class="buttonContainer">
-                            <button type="button" class="priorityButton lowButton">Low</button>
-                            <button type="button" class="priorityButton mediumButton">Medium</button>
-                            <button type="button" class="priorityButton highButton">High</button>
-                        </div>
-                    <label for="project">Project:
-                    <select name="project" id="project"></select></label>
-                    </div>
+              <div class="left">
+                <label for="date"
+                  >Date Due:
+                  <input required class="date" type="date" name="date"
+                /></label>
+                <div class="buttonContainer">
+                  <button type="button" class="priorityButton lowButton">
+                    Low
+                  </button>
+                  <button type="button" class="priorityButton mediumButton">
+                    Medium
+                  </button>
+                  <button type="button" class="priorityButton highButton">
+                    High
+                  </button>
                 </div>
-                <div class="addContainer">
-                    <button type="button" class="addButton">Add</button>
-                </div>
-                </form>
+                <label for="project"
+                  >Project:
+                  <select name="project" id="project"></select
+                ></label>
+              </div>
             </div>
+            <div class="addContainer">
+              <button type="button" class="addButton">Add</button>
+            </div>
+          </form>
         </div>
+      </div>
     </dialog>
 
-
     <div class="overallContainer">
-        <header>
-
-            <div class="titleContainer">
-                <svg class="note" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>text</title><path d="M21,6V8H3V6H21M3,18H12V16H3V18M3,13H21V11H3V13Z" /></svg>
-                <p>ObsessiveListDisorder</p>
-            </div>
-            <svg class="addTask" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Add Task</title><path d="M19,11H15V15H13V11H9V9H13V5H15V9H19M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M4,6H2V20A2,2 0 0,0 4,22H18V20H4V6Z" /></svg>
-        </header>
-        <div class="mainContainer">
-            <div id="sidenav">
-                <ul class="projectList">
-                </ul>
-            </div>
-                <div id="noteContainer"></div>
+      <header>
+        <div class="titleContainer">
+          <svg
+            class="note"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <title>text</title>
+            <path d="M21,6V8H3V6H21M3,18H12V16H3V18M3,13H21V11H3V13Z" />
+          </svg>
+          <p>ObsessiveListDisorder</p>
         </div>
+        <svg
+          class="addTask"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <title>Add Task</title>
+          <path
+            d="M19,11H15V15H13V11H9V9H13V5H15V9H19M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M4,6H2V20A2,2 0 0,0 4,22H18V20H4V6Z"
+          />
+        </svg>
+      </header>
+      <div class="mainContainer">
+        <div id="sidenav">
+          <ul class="projectList"></ul>
+        </div>
+        <div id="noteContainer"></div>
+      </div>
     </div>
-
-
-
-    
-</body>
-
+  </body>
 </html>
